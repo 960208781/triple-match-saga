@@ -1,8 +1,8 @@
 {
-  "rewardedVideoId": "adunit-xxx",
-  "interstitialId": "adunit-yyy",
-  "bannerId": "adunit-zzz",
-  "enableAds": true,
+  "rewardedVideoId": "",
+  "interstitialId": "",
+  "bannerId": "",
+  "enableAds": false,
   "adSettings": {
     "showAdOnLevelComplete": false,
     "showAdOnLevelFail": true,
