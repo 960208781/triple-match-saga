@@ -1,0 +1,12 @@
+{
+  "rewardedVideoId": "adunit-xxx",
+  "interstitialId": "adunit-yyy",
+  "bannerId": "adunit-zzz",
+  "enableAds": true,
+  "adSettings": {
+    "showAdOnLevelComplete": false,
+    "showAdOnLevelFail": true,
+    "showAdOnDailyLogin": true,
+    "rewardedAdCooldown": 300000
+  }
+}

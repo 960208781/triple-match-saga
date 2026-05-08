@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>三消奇缘 - Triple Match Saga</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="gameContainer">
+    <canvas id="gameCanvas"></canvas>
+    <div id="loadingScreen">
+      <div class="loading-content">
+        <h1>三消奇缘</h1>
+        <p>Triple Match Saga</p>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+        <p class="loading-text">加载中...</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 游戏脚本 -->
+  <script src="js/wechat.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/candy.js"></script>
+  <script src="js/animals.js"></script>
+  <script src="js/desserts.js"></script>
+  <script src="js/fruits.js"></script>
+  <script src="js/themes.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/pet.js"></script>
+  <script src="js/roguelike.js"></script>
+  <script src="js/evolve.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/eggs.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+  
+  <script>
+    // 隐藏加载画面
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+          loadingScreen.style.opacity = '0';
+          setTimeout(function() {
+            loadingScreen.style.display = 'none';
+          }, 500);
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
