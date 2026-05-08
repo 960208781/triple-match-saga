@@ -6,6 +6,24 @@
 (function() {
   'use strict';
   
+  // 兼容性roundRect函数（微信小游戏可能不支持原生roundRect）
+  function roundRect(ctx, x, y, width, height, radius) {
+    if (typeof ctx.roundRect === 'function') {
+      ctx.roundRect(x, y, width, height, radius);
+    } else {
+      // 手动绘制圆角矩形
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.arcTo(x + width, y, x + width, y + radius, radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+      ctx.lineTo(x + radius, y + height);
+      ctx.arcTo(x, y + height, x, y + height - radius, radius);
+      ctx.lineTo(x, y + radius);
+      ctx.arcTo(x, y, x + radius, y, radius);
+    }
+  }
+  
   // UI状态
   let currentScreen = 'menu'; // menu, levelSelect, game, shop, pause, result
   let selectedLevel = 1;
@@ -263,7 +281,7 @@
       }
       
       ctx.beginPath();
-      ctx.roundRect(x, y, cellSize, cellSize, 8);
+      roundRect(ctx, x, y, cellSize, cellSize, 8);
       ctx.fill();
       
       // 关卡号
@@ -361,7 +379,7 @@
     
     ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.beginPath();
-    ctx.roundRect(boardX, boardY, boardWidth, boardHeight, 10);
+    roundRect(ctx, boardX, boardY, boardWidth, boardHeight, 10);
     ctx.fill();
     
     // 绘制元素
@@ -397,7 +415,7 @@
           ctx.strokeStyle = '#FFD700';
           ctx.lineWidth = 3;
           ctx.beginPath();
-          ctx.roundRect(x + 2, y + 2, cellSize - 4, cellSize - 4, 5);
+          roundRect(ctx, x + 2, y + 2, cellSize - 4, cellSize - 4, 5);
           ctx.stroke();
         }
       }
@@ -453,7 +471,7 @@
       // 背景
       ctx.fillStyle = count > 0 ? 'rgba(255, 255, 255, 0.3)' : 'rgba(100, 100, 100, 0.3)';
       ctx.beginPath();
-      ctx.roundRect(x, y, itemSize, itemSize, 8);
+      roundRect(ctx, x, y, itemSize, itemSize, 8);
       ctx.fill();
       
       // 图标
@@ -483,7 +501,7 @@
     
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
-    ctx.roundRect(menuX, menuY, menuWidth, menuHeight, 15);
+    roundRect(ctx, menuX, menuY, menuWidth, menuHeight, 15);
     ctx.fill();
     
     // 标题
@@ -602,7 +620,7 @@
         // 物品背景
         ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
         ctx.beginPath();
-        ctx.roundRect(20, y, screenWidth - 40, itemHeight - 10, 10);
+        roundRect(ctx, 20, y, screenWidth - 40, itemHeight - 10, 10);
         ctx.fill();
         
         // 物品名称
@@ -642,7 +660,7 @@
     // 按钮背景
     ctx.fillStyle = isHovered ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)';
     ctx.beginPath();
-    ctx.roundRect(btn.x, btn.y, btn.width, btn.height, 10);
+    roundRect(ctx, btn.x, btn.y, btn.width, btn.height, 10);
     ctx.fill();
     
     // 边框
@@ -681,7 +699,7 @@
     
     ctx.fillStyle = isMuted ? '#FF4500' : '#32CD32';
     ctx.beginPath();
-    ctx.roundRect(screenWidth - 120, 130, 70, 30, 15);
+    roundRect(ctx, screenWidth - 120, 130, 70, 30, 15);
     ctx.fill();
     
     ctx.fillStyle = '#FFFFFF';
@@ -698,18 +716,18 @@
     const musicVolume = window.Sound ? window.Sound.getMusicVolume() : 0.5;
     ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
     ctx.beginPath();
-    ctx.roundRect(50, 230, screenWidth - 100, 10, 5);
+    roundRect(ctx, 50, 230, screenWidth - 100, 10, 5);
     ctx.fill();
     
     ctx.fillStyle = '#FFD700';
     ctx.beginPath();
-    ctx.roundRect(50, 230, (screenWidth - 100) * musicVolume, 10, 5);
+    roundRect(ctx, 50, 230, (screenWidth - 100) * musicVolume, 10, 5);
     ctx.fill();
     
     // 返回按钮
     ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.beginPath();
-    ctx.roundRect(centerX - 60, screenHeight - 100, 120, 45, 10);
+    roundRect(ctx, centerX - 60, screenHeight - 100, 120, 45, 10);
     ctx.fill();
     
     ctx.fillStyle = '#FFFFFF';

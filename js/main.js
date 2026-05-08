@@ -526,7 +526,8 @@
   // 渲染
   function render() {
     // 清空画布
-    game.ctx.clearRect(0, 0, game.width, game.height);
+    if (!game.ctx || !game.canvas) return;
+    game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
     
     // 渲染UI
     if (window.UI) {
