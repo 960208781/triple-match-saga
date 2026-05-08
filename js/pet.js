@@ -6,6 +6,21 @@
 (function() {
   'use strict';
   
+  // 兼容性圆角矩形绘制
+  function _drawRoundRect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, Math.min(w, h) / 2));
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h);
+    ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  
   // 宠物配置
   const petConfigs = {
     fire_dragon: {
@@ -612,7 +627,7 @@
     // 背景
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.beginPath();
-    ctx.roundRect(x, y, width, height, height / 2);
+    _drawRoundRect(ctx, x, y, width, height, height / 2);
     ctx.fill();
     
     // 能量条
@@ -624,7 +639,7 @@
     
     ctx.fillStyle = energyGradient;
     ctx.beginPath();
-    ctx.roundRect(x + 2, y + 2, energyWidth, height - 4, (height - 4) / 2);
+    _drawRoundRect(ctx, x + 2, y + 2, energyWidth, height - 4, (height - 4) / 2);
     ctx.fill();
     
     // 就绪时的闪烁效果
@@ -632,7 +647,7 @@
       ctx.strokeStyle = '#FFFFFF';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.roundRect(x, y, width, height, height / 2);
+      _drawRoundRect(ctx, x, y, width, height, height / 2);
       ctx.stroke();
     }
     
