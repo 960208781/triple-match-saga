@@ -7277,22 +7277,19 @@
 (function() {
   'use strict';
   
-  // 兼容性roundRect函数（微信小游戏可能不支持原生roundRect）
+  // 兼容性roundRect函数（微信小游戏原生roundRect参数不兼容，统一用手动绘制）
   function roundRect(ctx, x, y, width, height, radius) {
-    if (typeof ctx.roundRect === 'function') {
-      ctx.roundRect(x, y, width, height, radius);
-    } else {
-      // 手动绘制圆角矩形
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.arcTo(x + width, y, x + width, y + radius, radius);
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
-      ctx.lineTo(x + radius, y + height);
-      ctx.arcTo(x, y + height, x, y + height - radius, radius);
-      ctx.lineTo(x, y + radius);
-      ctx.arcTo(x, y, x + radius, y, radius);
-    }
+    var r = Math.max(0, Math.min(radius, Math.min(width, height) / 2));
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + width - r, y);
+    ctx.arcTo(x + width, y, x + width, y + r, r);
+    ctx.lineTo(x + width, y + height - r);
+    ctx.arcTo(x + width, y + height, x + width - r, y + height, r);
+    ctx.lineTo(x + r, y + height);
+    ctx.arcTo(x, y + height, x, y + height - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
   }
   
   // UI状态
